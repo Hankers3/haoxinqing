@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.common.mapper.HospitalInfoMapper">
+    <!--<cache type="org.mybatis.caches.memcached.MemcachedCache" />-->
+
+    <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.common.HospitalInfo">
+        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="delFlag" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="opeTime" property="opeTime" jdbcType="VARCHAR"/>
+        <result column="oper" property="oper" jdbcType="VARCHAR"/>
+        <result column="hospitalName" property="hospitalName" jdbcType="VARCHAR"/>
+        <result column="hospitalClassify" property="hospitalClassify" jdbcType="CHAR"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="region" property="region" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="hospitalLevel" property="hospitalLevel" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uuid, delFlag, opeTime, oper, hospitalName, hospitalClassify,
+        province, city, region, createTime, note, address, hospitalLevel
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select <include refid="Base_Column_List"/> from hospital_info where uuid=#{uuid,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectHospital" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from hospital_info
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+	        <if test="provinceUuid != null">and province=#{provinceUuid,jdbcType=VARCHAR}</if>
+	        <if test="cityUuid != null">and city=#{cityUuid,jdbcType=VARCHAR}</if>
+	        <if test="regionUuid != null">and region=#{regionUuid,jdbcType=VARCHAR}</if>
+        </trim>
+        ORDER BY hospitalName
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from hospital_info where uuid=#{uuid,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.hxq.mobile.entity.common.HospitalInfo">
+        insert into hospital_info (uuid, delFlag, opeTime, oper, hospitalName,
+        hospitalClassify, province, city, region, createTime, note, address, hospitalLevel)
+        values (#{uuid,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR},
+        #{oper,jdbcType=VARCHAR}, #{hospitalName,jdbcType=VARCHAR}, #{hospitalClassify,jdbcType=CHAR},
+        #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR},
+        #{createTime,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+        #{hospitalLevel,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.hxq.mobile.entity.common.HospitalInfo">
+        insert into hospital_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">uuid,</if>
+            <if test="delFlag != null">delFlag,</if>
+            <if test="opeTime != null">opeTime,</if>
+            <if test="oper != null">oper,</if>
+            <if test="hospitalName != null">hospitalName,</if>
+            <if test="hospitalClassify != null">hospitalClassify,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="region != null">region,</if>
+            <if test="createTime != null">createTime,</if>
+            <if test="note != null">note,</if>
+            <if test="address != null">address,</if>
+            <if test="hospitalLevel != null">hospitalLevel,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">#{uuid,jdbcType=VARCHAR},</if>
+            <if test="delFlag != null">#{delFlag,jdbcType=VARCHAR},</if>
+            <if test="opeTime != null">#{opeTime,jdbcType=VARCHAR},</if>
+            <if test="oper != null">#{oper,jdbcType=VARCHAR},</if>
+            <if test="hospitalName != null">#{hospitalName,jdbcType=VARCHAR},</if>
+            <if test="hospitalClassify != null">#{hospitalClassify,jdbcType=CHAR},</if>
+            <if test="province != null">#{province,jdbcType=VARCHAR},</if>
+            <if test="city != null">#{city,jdbcType=VARCHAR},</if>
+            <if test="region != null">#{region,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+            <if test="note != null">#{note,jdbcType=VARCHAR},</if>
+            <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+            <if test="hospitalLevel != null">#{hospitalLevel,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.common.HospitalInfo">
+        update hospital_info
+        <set>
+            <if test="delFlag != null">delFlag=#{delFlag,jdbcType=VARCHAR},</if>
+            <if test="opeTime != null">opeTime=#{opeTime,jdbcType=VARCHAR},</if>
+            <if test="oper != null">oper=#{oper,jdbcType=VARCHAR},</if>
+            <if test="hospitalName != null">hospitalName=#{hospitalName,jdbcType=VARCHAR},</if>
+            <if test="hospitalClassify != null">hospitalClassify=#{hospitalClassify,jdbcType=CHAR},</if>
+            <if test="province != null">province=#{province,jdbcType=VARCHAR},</if>
+            <if test="city != null">city=#{city,jdbcType=VARCHAR},</if>
+            <if test="region != null">region=#{region,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">createTime=#{createTime,jdbcType=VARCHAR},</if>
+            <if test="note != null">note=#{note,jdbcType=VARCHAR},</if>
+            <if test="address != null">address=#{address,jdbcType=VARCHAR},</if>
+            <if test="hospitalLevel != null">hospitalLevel=#{hospitalLevel,jdbcType=VARCHAR},</if>
+        </set>
+        where uuid=#{uuid,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.common.HospitalInfo">
+      update hospital_info set
+        delFlag=#{delFlag,jdbcType=VARCHAR},
+        opeTime=#{opeTime,jdbcType=VARCHAR},
+        oper=#{oper,jdbcType=VARCHAR},
+        hospitalName=#{hospitalName,jdbcType=VARCHAR},
+        hospitalClassify=#{hospitalClassify,jdbcType=CHAR},
+        province=#{province,jdbcType=VARCHAR},
+        city=#{city,jdbcType=VARCHAR},
+        region=#{region,jdbcType=VARCHAR},
+        createTime=#{createTime,jdbcType=VARCHAR},
+        note=#{note,jdbcType=VARCHAR},
+        address=#{address,jdbcType=VARCHAR},
+        hospitalLevel=#{hospitalLevel,jdbcType=VARCHAR}
+      where uuid=#{uuid,jdbcType=VARCHAR}
+    </update>
+</mapper>

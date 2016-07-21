@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository.xsd
+http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd
+">
+	<bean id="messageSource"
+		class="com.aebiz.b2b2c.baseframework.message.AppResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>sysconf</value>
+				<value>messages/basebusiness/SystemPubError</value>
+				<value>messages/basebusiness/SystemPubTitle</value>
+				<value>messages/basebusiness/base_messages</value>
+				<value>messages/basebusiness/pubMessages</value>
+				<value>messages/basicdata/BasicDataError</value>
+				<value>messages/basicdata/BasicDataTitle</value>
+
+				<value>messages/cms/TagsCategoryTitle</value>
+				<value>messages/cms/TagsCategoryError</value>
+				<value>messages/cms/TagsTitle</value>
+				<value>messages/cms/TagsError</value>
+				<value>messages/cms/TagsCategoyRelTitle</value>
+				<value>messages/cms/ConsumerProtectionTitle</value>
+				<value>messages/cms/ProtectionProductRelTitle</value>
+				<value>messages/cms/ProtectionStoreRelTitle</value>
+				<value>messages/cms/ProtectionError</value>
+				<value>messages/cms/StoreTagsTitle</value>
+				<value>messages/cms/OrderShowTitle</value>
+				<value>messages/cms/OrderShowError</value>
+				<value>messages/cms/OrderMainAppraiseTitle</value>
+				<value>messages/cms/OrderMainAppraiseError</value>
+				<value>messages/cms/ProductAppraiseTitle</value>
+				<value>messages/cms/StoreConsumerProtectTitle</value>
+				<value>messages/cms/MessageRemindTitle</value>
+				<value>messages/cms/InnerMessageTitle</value>
+				<value>messages/cms/channelTitle</value>
+				<value>messages/cms/ContentTitle</value>
+				<value>messages/cms/ContentCategoryTitle</value>
+				<value>messages/cms/InnerMessageNoticeTitle</value>
+				<value>messages/cms/PlatFormInfoTitle</value>
+
+				<value>messages/customer/UcenterCustomerTitle</value>
+	      		<value>messages/customer/CustomerTitle</value>
+		 		<value>messages/customer/CustomerError</value>
+	      		<value>messages/customer/VipclubTitle</value>
+
+			  	<value>messages/financemgr/FinancePubTitle</value>
+	    		<value>messages/financemgr/FinanceError</value>
+
+				<value>messages/sys_messages</value>
+				<value>messages/messages</value>
+
+				<value>messages/order/OrderPubTitle</value>
+				<value>messages/order/OrderError</value>
+				<value>messages/order/UcenterTitle</value>
+				<value>messages/order/orderroutingTitle</value>
+
+				<value>messages/productmgr/ProductTitle</value>
+				<value>messages/productmgr/ProductError</value>
+				<value>messages/productmgr/ProductPubMessagse</value>
+				<value>messages/productmgr/ProductCategoryStoreTitle</value>
+				<value>messages/productmgr/ProductGroupTitle</value>
+				<value>messages/productmgr/ProductGroupError</value>
+				<value>messages/productmgr/ProductCategoryFrontTitle</value>
+				<value>messages/productmgr/ProductCategoryBrandRelTitle</value>
+
+				<value>messages/pubtitle/Base_messages</value>
+
+				<value>messages/servicestaffmgr/ServiceStaffCoordTitle</value>
+	     		<value>messages/servicestaffmgr/StaffLoginStatusTitle</value>
+	      		<value>messages/servicestaffmgr/ServicestaffTitle</value>
+
+				<value>messages/thirdinterface/EmailMessageTitle</value>
+				<value>messages/thirdinterface/MobileMessageTitle</value>
+				<value>messages/thirdinterface/ThirdInterfaceTemplateTitle</value>
+
+				<value>messages/userfront/PlatImageCategoryTitle</value>
+				<value>messages/userfront/PlattImageLibraryTitle</value>
+				<value>messages/userfront/PlatAdImageRelTitle</value>
+				<value>messages/userfront/PlatAdTitle</value>
+
+				<value>messages/vipclubmgr/VipclubTitle</value>
+				<value>messages/vipclubmgr/GiftPackageTitle</value>
+
+				<value>messages/virtualaccountmgr/VirtualAccountError</value>
+				<value>messages/virtualaccountmgr/VirtualAccountPubTitle</value>
+				<value>messages/visitprecept/VisitPreceptTitle</value>
+
+				<value>messages/websiteoperatemgr/PaltCongfigTitle</value>
+				<value>messages/websiteoperatemgr/WebsiteOperateTitle</value>
+
+			</list>
+		</property>
+		<property name="language" value="zh"></property>
+		<property name="country" value="CN"></property>
+	</bean>
+</beans>

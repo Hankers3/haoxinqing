@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<import resource="applicationContext.xml"/>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="count*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="list*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <aop:pointcut id="txPointcut" expression="execution(* com.aebiz..service..*ServiceImpl.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+    
+    <tx:advice id="txAdvice2" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="getNextUuid" propagation="REQUIRES_NEW"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <aop:pointcut id="txPointcut2" expression="execution(* com.aebiz..service.Uuid*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice2" pointcut-ref="txPointcut2"/>
+    </aop:config>
+    
+    <tx:advice id="txAdvice3" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <aop:pointcut id="txPointcut3" expression="execution(* com.aebiz..ModulesTest.*(..))"/>
+        <aop:advisor advice-ref="txAdvice3" pointcut-ref="txPointcut3"/>
+    </aop:config>
+</beans>

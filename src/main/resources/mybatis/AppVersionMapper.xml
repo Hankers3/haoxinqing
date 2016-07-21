@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.support.dao.AppVersionDao">
+
+     <resultMap id="base_result_map" type="com.hxq.mobile.entity.common.AppPublish">
+        <id property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="flag" column="flag" jdbcType="VARCHAR"/>
+        <result property="popup" column="popup" jdbcType="VARCHAR"/>
+        <result property="forceUpdate" column="forceUpdate" jdbcType="VARCHAR"/>
+        <result property="publishDate" column="publish_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectVersion" parameterType="string" resultMap="base_result_map">
+        SELECT type, version, url,popup,forceUpdate FROM app_publish WHERE flag='1'
+        AND type = #{type,jdbcType=VARCHAR} ORDER BY version DESC LIMIT 1
+    </select>    
+    
+
+    <select id="selectLast" parameterType="map" resultType="hashmap">
+        SELECT type, version, url FROM app_publish WHERE flag='1' AND type=#{type,jdbcType=VARCHAR}
+        <if test="last != null and last !=''">AND version &gt; #{last,jdbcType=VARCHAR}</if>
+        ORDER BY version ASC
+    </select>
+</mapper>

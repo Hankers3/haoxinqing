@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-lazy-init="true">
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 开启controller注解支持 -->
+	<context:component-scan base-package="com.aebiz,com.hxq.mobile.**.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+
+    <!-- 类型转换及数据格式化 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<!-- 定义表单日期的转换器 -->
+				<bean class="com.wxcommon.DateConverter"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置使用自定义ExceptionResolver 来映射异常 -->
+	<bean class="com.hxq.mobile.util.api.ApiExceptionResolver">
+		<property name="order" value="-1"/>
+	</bean>
+
+	<!-- 会自动注册了validator ConversionService -->
+	<mvc:annotation-driven conversion-service="conversionService"
+		content-negotiation-manager="contentNegotiationManager">
+		<mvc:argument-resolvers>
+			<!-- 定义方法中分页参数的解析器 -->
+			<bean class="com.wxcommon.pagination.PaginationMethodArgumentResolver"/>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<mvc:default-servlet-handler />
+	<mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
+
+	<!-- 注册validator -->
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+		<property name="validationMessageSource" ref="messageSource"/> </bean> -->
+	<!-- 注册消息文件 -->
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages"/> <property name="fileEncodings"
+		value="utf-8"/> <property name="cacheSeconds" value="120"/> </bean> <bean
+		id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600"/> </bean> -->
+
+	<!--1、检查扩展名（如my.pdf）；2、检查Parameter（如my?format=pdf）；3、检查Accept Header -->
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<!-- 扩展名至mimeType的映射,即 /user.json => application/json -->
+		<property name="favorPathExtension" value="true" />
+		<!-- 用于开启 /userinfo/123?format=json 的支持 -->
+		<property name="favorParameter" value="true" />
+		<property name="parameterName" value="format" />
+		<!-- 是否忽略Accept Header -->
+		<property name="ignoreAcceptHeader" value="false" />
+		<property name="mediaTypes"> <!--扩展名到MIME的映射；favorPathExtension, favorParameter是true时起作用 -->
+			<value>
+				json=application/json;charset=utf-8
+				xml=application/xml;charset=utf-8
+				html=text/html;charset=utf-8
+			</value>
+		</property>
+		<!-- 默认的content type -->
+		<property name="defaultContentType" value="text/html" />
+	</bean>
+	<!-- ========================= VIEW定义 ========================= -->
+	<!-- 内容协商视图解析器；根据客户端不同的请求决定不同的view进行响应 -->
+	<!-- 会自动根据解析的contentType来决定使用哪个视图解析器（默认使用整个web应用中的viewResolver） -->
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
+		p:order="0">
+		<!-- 内容协商管理器 用于决定media type -->
+		<property name="contentNegotiationManager" ref="contentNegotiationManager" />
+		<!-- 默认视图 放在解析链最后 -->
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<property name="marshaller">
+						<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+							<property name="packagesToScan" value="cn.javass"></property>
+						</bean>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- bean name view resolver -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="1" />
+	<!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
+	<bean id="defaultViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:order="2">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="contentType" value="text/html" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 解决编辑器遇到问题：Spring MultipartResolver 或者 ServletFileUpload 冲突 -->
+	<bean id="multipartResolver"
+		class="com.aebiz.b2b2c.basebusiness.ueditor.FilterMultipartResolver">
+		<property name="excludeUrls" value="/ueditor/"/>
+		<!-- url中带有example的http请求就不会被multipartResolver先解析-->
+		<property name="maxUploadSize" value="2147483648" />
+	</bean>
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	    <property name="securityManager" ref="securityManager"/>
+	    <!--以下为可选配置，请按照实际项目需要进行配置-->
+	    <property name="loginUrl" value="/toLogin"/>
+	    <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+	    <!-- filters属性也是可选的，用来声明一些可以在filterChainDefinitions 里面使用的filter。如果你声明的filter名称是shiro默认有的，那么将会覆盖默认的filter -->
+	    <!-- 比如：这个filter是shiro里面有的，那么自定义的filter将会覆盖默认的
+	    <property name="filters">
+	        <util:map>
+	            <entry key="authc" value-ref="formAuthenticationFilter"/>
+	            <entry key="jCaptchaValidate" value-ref="jCaptchaValidateFilter"/>
+	        </util:map>
+	    </property>
+	    -->
+	    <property name="filterChainDefinitions">
+	        <value>
+		<!-- 这里配置urls，对不同的url配置需要经过的filter-->
+	            /jcaptcha* = anon
+	            /logout = anon
+	            <!--
+		            /sysmanager/** = authc, perms["sysback:menu:view"]
+		            /sysrole/** = authc, perms["sysback:sysrole:*"]
+	            -->
+	        </value>
+	    </property>
+	</bean>
+</beans>

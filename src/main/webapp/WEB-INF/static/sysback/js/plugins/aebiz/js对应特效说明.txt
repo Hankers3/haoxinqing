@@ -1,0 +1,12 @@
+aebiz_global.js : 全局公共的js 
+
+其他插件调用和页面js:
+1、aebiz.buttonfloat.js  : 浮动按钮的js 
+2、aebiz.checkbox.js  : 调用单选、复选框美化样式插件的js
+3、aebiz.dynatree.js  : 调用文件树结构插件的js
+4、aebiz.editable.js  : 调用可编辑元素的js
+5、aebiz.form.wizard.js : 调用Wizard 表单向导(多步的切换)插件js
+6、aebiz.multiselect.js : 调用 multiselect 双多选框js   
+7、aebiz.validate.js :  调用表单验证Validation插件的js
+8、aebiz.dataTable.js : 调用动态数据表插件的js 
+9、aebiz.CKEditor.js : 调用文本编辑器插件的js

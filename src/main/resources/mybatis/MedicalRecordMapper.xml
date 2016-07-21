@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.doctor.visit.mapper.MedicalRecordMapper" >
+
+  <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.visit.MedicalRecord" >
+    <id column="UUID" property="uuid" jdbcType="VARCHAR" />
+    <result column="oper" property="oper" jdbcType="VARCHAR" />
+    <result column="opeTime" property="opeTime" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delFlag" jdbcType="VARCHAR" />
+    <result column="customerUuid" property="customerUuid" jdbcType="VARCHAR" />
+    <result column="caseCategoryUuid" property="caseCategoryUuid" jdbcType="VARCHAR" />
+    <result column="hospitalUuid" property="hospitalUuid" jdbcType="VARCHAR" />
+    <result column="divisionUuid" property="divisionUuid" jdbcType="VARCHAR" />
+    <result column="doctorUuid" property="doctorUuid" jdbcType="VARCHAR" />
+    <result column="visitRecordUuid" property="visitRecordUuid" jdbcType="VARCHAR" />
+    <result column="mainsuit" property="mainsuit" jdbcType="VARCHAR" />
+    <result column="illness" property="illness" jdbcType="VARCHAR" />
+    <result column="previous" property="previous" jdbcType="VARCHAR" />
+    <result column="personal" property="personal" jdbcType="VARCHAR" />
+    <result column="family" property="family" jdbcType="VARCHAR" />
+    <result column="somastate" property="somastate" jdbcType="VARCHAR" />
+    <result column="spiritCheck" property="spiritCheck" jdbcType="VARCHAR" />
+    <result column="assistCheck" property="assistCheck" jdbcType="VARCHAR" />
+    <result column="abnormal" property="abnormal" jdbcType="VARCHAR" />
+    <result column="diagnosis" property="diagnosis" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="process" property="process" jdbcType="VARCHAR" />
+    <result column="attackNum" property="attackNum" jdbcType="INTEGER" />
+    <result column="comorbidity" property="comorbidity" jdbcType="VARCHAR" />
+    <result column="complication" property="complication" jdbcType="VARCHAR" />
+    <result column="scaleAppraisal" property="scaleAppraisal" jdbcType="VARCHAR" />
+    <result column="curePreceptUuid" property="curePreceptUuid" jdbcType="VARCHAR" />
+    <result column="cureCourse" property="cureCourse" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+    <result column="image1" property="image1" jdbcType="VARCHAR" />
+    <result column="image2" property="image2" jdbcType="VARCHAR" />
+    <result column="image3" property="image3" jdbcType="VARCHAR" />
+    <result column="image4" property="image4" jdbcType="VARCHAR" />
+    <result column="image5" property="image5" jdbcType="VARCHAR" />
+    <result column="preassistCheck" property="preAssistCheck" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="caseCategoryType" property="caseCategoryType" jdbcType="CHAR" />
+    <result column="medicalNum" property="medicalNum" jdbcType="VARCHAR" />
+    <result column="seeDoctorTime" property="seeDoctorTime" jdbcType="VARCHAR" />
+    <result column="assistCheckImage" property="assistCheckImage" jdbcType="VARCHAR" />
+    <result column="diagnosisImage" property="diagnosisImage" jdbcType="VARCHAR" />
+    <result column="visitPreceptUuid" property="visitPreceptUuid" jdbcType="VARCHAR" />
+    <result column="cureCourseImage" property="cureCourseImage" jdbcType="VARCHAR" />
+    <result column="preassistCheckImage" property="preAssistCheckImage" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    UUID, oper, opeTime, delFlag, customerUuid, caseCategoryUuid, hospitalUuid, divisionUuid, 
+    doctorUuid, visitRecordUuid, mainsuit, illness, previous, personal, family, somastate, 
+    spiritCheck, assistCheck, abnormal, diagnosis, date, process, attackNum, comorbidity, 
+    complication, scaleAppraisal, curePreceptUuid, cureCourse, startTime, endTime, image1, 
+    image2, image3, image4, image5, preassistCheck, createTime, caseCategoryType, medicalNum, 
+    seeDoctorTime, assistCheckImage, diagnosisImage, visitPreceptUuid, cureCourseImage, 
+    preassistCheckImage
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List"/> from medical_record  where UUID = #{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from medical_record where UUID = #{uuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxq.mobile.entity.visit.MedicalRecord" >
+    insert into medical_record (UUID, oper, opeTime, 
+      delFlag, customerUuid, caseCategoryUuid, 
+      hospitalUuid, divisionUuid, doctorUuid, 
+      visitRecordUuid, mainsuit, illness, 
+      previous, personal, family, 
+      somastate, spiritCheck, assistCheck, 
+      abnormal, diagnosis, date, 
+      process, attackNum, comorbidity, 
+      complication, scaleAppraisal, curePreceptUuid, 
+      cureCourse, startTime, endTime, 
+      image1, image2, image3, 
+      image4, image5, preassistCheck, 
+      createTime, caseCategoryType, medicalNum, 
+      seeDoctorTime, assistCheckImage, diagnosisImage, 
+      visitPreceptUuid, cureCourseImage, preassistCheckImage
+      )
+    values (#{uuid,jdbcType=VARCHAR}, #{oper,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=VARCHAR}, #{customerUuid,jdbcType=VARCHAR}, #{caseCategoryUuid,jdbcType=VARCHAR}, 
+      #{hospitalUuid,jdbcType=VARCHAR}, #{divisionUuid,jdbcType=VARCHAR}, #{doctorUuid,jdbcType=VARCHAR}, 
+      #{visitRecordUuid,jdbcType=VARCHAR}, #{mainsuit,jdbcType=VARCHAR}, #{illness,jdbcType=VARCHAR}, 
+      #{previous,jdbcType=VARCHAR}, #{personal,jdbcType=VARCHAR}, #{family,jdbcType=VARCHAR}, 
+      #{somastate,jdbcType=VARCHAR}, #{spiritCheck,jdbcType=VARCHAR}, #{assistCheck,jdbcType=VARCHAR}, 
+      #{abnormal,jdbcType=VARCHAR}, #{diagnosis,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{process,jdbcType=VARCHAR}, #{attackNum,jdbcType=INTEGER}, #{comorbidity,jdbcType=VARCHAR}, 
+      #{complication,jdbcType=VARCHAR}, #{scaleAppraisal,jdbcType=VARCHAR}, #{curePreceptUuid,jdbcType=VARCHAR}, 
+      #{cureCourse,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{image1,jdbcType=VARCHAR}, #{image2,jdbcType=VARCHAR}, #{image3,jdbcType=VARCHAR}, 
+      #{image4,jdbcType=VARCHAR}, #{image5,jdbcType=VARCHAR}, #{preAssistCheck,jdbcType=VARCHAR},
+      #{createTime,jdbcType=VARCHAR}, #{caseCategoryType,jdbcType=CHAR}, #{medicalNum,jdbcType=VARCHAR}, 
+      #{seeDoctorTime,jdbcType=VARCHAR}, #{assistCheckImage,jdbcType=VARCHAR}, #{diagnosisImage,jdbcType=VARCHAR}, 
+      #{visitPreceptUuid,jdbcType=VARCHAR}, #{cureCourseImage,jdbcType=VARCHAR}, #{preAssistCheckImage,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxq.mobile.entity.visit.MedicalRecord" >
+    insert into medical_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        UUID,
+      </if>
+      <if test="oper != null" >
+        oper,
+      </if>
+      <if test="opeTime != null" >
+        opeTime,
+      </if>
+      <if test="delFlag != null" >
+        delFlag,
+      </if>
+      <if test="customerUuid != null" >
+        customerUuid,
+      </if>
+      <if test="caseCategoryUuid != null" >
+        caseCategoryUuid,
+      </if>
+      <if test="hospitalUuid != null" >
+        hospitalUuid,
+      </if>
+      <if test="divisionUuid != null" >
+        divisionUuid,
+      </if>
+      <if test="doctorUuid != null" >
+        doctorUuid,
+      </if>
+      <if test="visitRecordUuid != null" >
+        visitRecordUuid,
+      </if>
+      <if test="mainsuit != null" >
+        mainsuit,
+      </if>
+      <if test="illness != null" >
+        illness,
+      </if>
+      <if test="previous != null" >
+        previous,
+      </if>
+      <if test="personal != null" >
+        personal,
+      </if>
+      <if test="family != null" >
+        family,
+      </if>
+      <if test="somastate != null" >
+        somastate,
+      </if>
+      <if test="spiritCheck != null" >
+        spiritCheck,
+      </if>
+      <if test="assistCheck != null" >
+        assistCheck,
+      </if>
+      <if test="abnormal != null" >
+        abnormal,
+      </if>
+      <if test="diagnosis != null" >
+        diagnosis,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="process != null" >
+        process,
+      </if>
+      <if test="attackNum != null" >
+        attackNum,
+      </if>
+      <if test="comorbidity != null" >
+        comorbidity,
+      </if>
+      <if test="complication != null" >
+        complication,
+      </if>
+      <if test="scaleAppraisal != null" >
+        scaleAppraisal,
+      </if>
+      <if test="curePreceptUuid != null" >
+        curePreceptUuid,
+      </if>
+      <if test="cureCourse != null" >
+        cureCourse,
+      </if>
+      <if test="startTime != null" >
+        startTime,
+      </if>
+      <if test="endTime != null" >
+        endTime,
+      </if>
+      <if test="image1 != null" >
+        image1,
+      </if>
+      <if test="image2 != null" >
+        image2,
+      </if>
+      <if test="image3 != null" >
+        image3,
+      </if>
+      <if test="image4 != null" >
+        image4,
+      </if>
+      <if test="image5 != null" >
+        image5,
+      </if>
+      <if test="preAssistCheck != null" >
+        preassistCheck,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="caseCategoryType != null" >
+        caseCategoryType,
+      </if>
+      <if test="medicalNum != null" >
+        medicalNum,
+      </if>
+      <if test="seeDoctorTime != null" >
+        seeDoctorTime,
+      </if>
+      <if test="assistCheckImage != null" >
+        assistCheckImage,
+      </if>
+      <if test="diagnosisImage != null" >
+        diagnosisImage,
+      </if>
+      <if test="visitPreceptUuid != null" >
+        visitPreceptUuid,
+      </if>
+      <if test="cureCourseImage != null" >
+        cureCourseImage,
+      </if>
+      <if test="preAssistCheckImage != null" >
+        preassistCheckImage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="oper != null" >
+        #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="customerUuid != null" >
+        #{customerUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="caseCategoryUuid != null" >
+        #{caseCategoryUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalUuid != null" >
+        #{hospitalUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="divisionUuid != null" >
+        #{divisionUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorUuid != null" >
+        #{doctorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="visitRecordUuid != null" >
+        #{visitRecordUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="mainsuit != null" >
+        #{mainsuit,jdbcType=VARCHAR},
+      </if>
+      <if test="illness != null" >
+        #{illness,jdbcType=VARCHAR},
+      </if>
+      <if test="previous != null" >
+        #{previous,jdbcType=VARCHAR},
+      </if>
+      <if test="personal != null" >
+        #{personal,jdbcType=VARCHAR},
+      </if>
+      <if test="family != null" >
+        #{family,jdbcType=VARCHAR},
+      </if>
+      <if test="somastate != null" >
+        #{somastate,jdbcType=VARCHAR},
+      </if>
+      <if test="spiritCheck != null" >
+        #{spiritCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="assistCheck != null" >
+        #{assistCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="abnormal != null" >
+        #{abnormal,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosis != null" >
+        #{diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="attackNum != null" >
+        #{attackNum,jdbcType=INTEGER},
+      </if>
+      <if test="comorbidity != null" >
+        #{comorbidity,jdbcType=VARCHAR},
+      </if>
+      <if test="complication != null" >
+        #{complication,jdbcType=VARCHAR},
+      </if>
+      <if test="scaleAppraisal != null" >
+        #{scaleAppraisal,jdbcType=VARCHAR},
+      </if>
+      <if test="curePreceptUuid != null" >
+        #{curePreceptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="cureCourse != null" >
+        #{cureCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="image4 != null" >
+        #{image4,jdbcType=VARCHAR},
+      </if>
+      <if test="image5 != null" >
+        #{image5,jdbcType=VARCHAR},
+      </if>
+      <if test="preAssistCheck != null" >
+        #{preAssistCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="caseCategoryType != null" >
+        #{caseCategoryType,jdbcType=CHAR},
+      </if>
+      <if test="medicalNum != null" >
+        #{medicalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="seeDoctorTime != null" >
+        #{seeDoctorTime,jdbcType=VARCHAR},
+      </if>
+      <if test="assistCheckImage != null" >
+        #{assistCheckImage,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosisImage != null" >
+        #{diagnosisImage,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPreceptUuid != null" >
+        #{visitPreceptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="cureCourseImage != null" >
+        #{cureCourseImage,jdbcType=VARCHAR},
+      </if>
+      <if test="preAssistCheckImage != null" >
+        #{preAssistCheckImage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.visit.MedicalRecord" >
+    update medical_record
+    <set >
+      <if test="oper != null" >
+        oper = #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        opeTime = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        delFlag = #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="customerUuid != null" >
+        customerUuid = #{customerUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="caseCategoryUuid != null" >
+        caseCategoryUuid = #{caseCategoryUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalUuid != null" >
+        hospitalUuid = #{hospitalUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="divisionUuid != null" >
+        divisionUuid = #{divisionUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorUuid != null" >
+        doctorUuid = #{doctorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="visitRecordUuid != null" >
+        visitRecordUuid = #{visitRecordUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="mainsuit != null" >
+        mainsuit = #{mainsuit,jdbcType=VARCHAR},
+      </if>
+      <if test="illness != null" >
+        illness = #{illness,jdbcType=VARCHAR},
+      </if>
+      <if test="previous != null" >
+        previous = #{previous,jdbcType=VARCHAR},
+      </if>
+      <if test="personal != null" >
+        personal = #{personal,jdbcType=VARCHAR},
+      </if>
+      <if test="family != null" >
+        family = #{family,jdbcType=VARCHAR},
+      </if>
+      <if test="somastate != null" >
+        somastate = #{somastate,jdbcType=VARCHAR},
+      </if>
+      <if test="spiritCheck != null" >
+        spiritCheck = #{spiritCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="assistCheck != null" >
+        assistCheck = #{assistCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="abnormal != null" >
+        abnormal = #{abnormal,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosis != null" >
+        diagnosis = #{diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="attackNum != null" >
+        attackNum = #{attackNum,jdbcType=INTEGER},
+      </if>
+      <if test="comorbidity != null" >
+        comorbidity = #{comorbidity,jdbcType=VARCHAR},
+      </if>
+      <if test="complication != null" >
+        complication = #{complication,jdbcType=VARCHAR},
+      </if>
+      <if test="scaleAppraisal != null" >
+        scaleAppraisal = #{scaleAppraisal,jdbcType=VARCHAR},
+      </if>
+      <if test="curePreceptUuid != null" >
+        curePreceptUuid = #{curePreceptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="cureCourse != null" >
+        cureCourse = #{cureCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        startTime = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        endTime = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        image1 = #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        image2 = #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        image3 = #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="image4 != null" >
+        image4 = #{image4,jdbcType=VARCHAR},
+      </if>
+      <if test="image5 != null" >
+        image5 = #{image5,jdbcType=VARCHAR},
+      </if>
+      <if test="preAssistCheck != null" >
+        preassistCheck = #{preAssistCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="caseCategoryType != null" >
+        caseCategoryType = #{caseCategoryType,jdbcType=CHAR},
+      </if>
+      <if test="medicalNum != null" >
+        medicalNum = #{medicalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="seeDoctorTime != null" >
+        seeDoctorTime = #{seeDoctorTime,jdbcType=VARCHAR},
+      </if>
+      <if test="assistCheckImage != null" >
+        assistCheckImage = #{assistCheckImage,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosisImage != null" >
+        diagnosisImage = #{diagnosisImage,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPreceptUuid != null" >
+        visitPreceptUuid = #{visitPreceptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="cureCourseImage != null" >
+        cureCourseImage = #{cureCourseImage,jdbcType=VARCHAR},
+      </if>
+      <if test="preAssistCheckImage != null" >
+        preassistCheckImage = #{preAssistCheckImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.visit.MedicalRecord" >
+    update medical_record set
+      oper = #{oper,jdbcType=VARCHAR},
+      opeTime = #{opeTime,jdbcType=VARCHAR},
+      delFlag = #{delFlag,jdbcType=VARCHAR},
+      customerUuid = #{customerUuid,jdbcType=VARCHAR},
+      caseCategoryUuid = #{caseCategoryUuid,jdbcType=VARCHAR},
+      hospitalUuid = #{hospitalUuid,jdbcType=VARCHAR},
+      divisionUuid = #{divisionUuid,jdbcType=VARCHAR},
+      doctorUuid = #{doctorUuid,jdbcType=VARCHAR},
+      visitRecordUuid = #{visitRecordUuid,jdbcType=VARCHAR},
+      mainsuit = #{mainsuit,jdbcType=VARCHAR},
+      illness = #{illness,jdbcType=VARCHAR},
+      previous = #{previous,jdbcType=VARCHAR},
+      personal = #{personal,jdbcType=VARCHAR},
+      family = #{family,jdbcType=VARCHAR},
+      somastate = #{somastate,jdbcType=VARCHAR},
+      spiritCheck = #{spiritCheck,jdbcType=VARCHAR},
+      assistCheck = #{assistCheck,jdbcType=VARCHAR},
+      abnormal = #{abnormal,jdbcType=VARCHAR},
+      diagnosis = #{diagnosis,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      process = #{process,jdbcType=VARCHAR},
+      attackNum = #{attackNum,jdbcType=INTEGER},
+      comorbidity = #{comorbidity,jdbcType=VARCHAR},
+      complication = #{complication,jdbcType=VARCHAR},
+      scaleAppraisal = #{scaleAppraisal,jdbcType=VARCHAR},
+      curePreceptUuid = #{curePreceptUuid,jdbcType=VARCHAR},
+      cureCourse = #{cureCourse,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=VARCHAR},
+      endTime = #{endTime,jdbcType=VARCHAR},
+      image1 = #{image1,jdbcType=VARCHAR},
+      image2 = #{image2,jdbcType=VARCHAR},
+      image3 = #{image3,jdbcType=VARCHAR},
+      image4 = #{image4,jdbcType=VARCHAR},
+      image5 = #{image5,jdbcType=VARCHAR},
+      preassistCheck = #{preAssistCheck,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      caseCategoryType = #{caseCategoryType,jdbcType=CHAR},
+      medicalNum = #{medicalNum,jdbcType=VARCHAR},
+      seeDoctorTime = #{seeDoctorTime,jdbcType=VARCHAR},
+      assistCheckImage = #{assistCheckImage,jdbcType=VARCHAR},
+      diagnosisImage = #{diagnosisImage,jdbcType=VARCHAR},
+      visitPreceptUuid = #{visitPreceptUuid,jdbcType=VARCHAR},
+      cureCourseImage = #{cureCourseImage,jdbcType=VARCHAR},
+      preassistCheckImage = #{preAssistCheckImage,jdbcType=VARCHAR}
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

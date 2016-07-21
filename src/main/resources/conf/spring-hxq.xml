@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
+
+	<bean class="com.wxcommon.util.SpringUtils"/>
+
+<!-- 	<bean id="memcachedCacheManager" class="com.wxcommon.cache.JMemcachedCacheManager"> -->
+<!-- 		<property name="memcached" ref="memCachedClient"/> -->
+			<!-- 配置缓存时间，单位秒 -->
+<!--     	<property name="expiredTime"> -->
+<!--     		<map> -->
+<!--     			<entry key="s30" value="10"/> -->
+<!--     			<entry key="m1" value="10"/> -->
+<!--     			<entry key="h1" value="10"/> -->
+<!--     		</map> -->
+<!--     	</property> -->
+<!--     </bean> -->
+
+	<!-- SpyMemcached客户端 -->
+	<bean id="spyMemcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean">
+		<!-- 一个字符串，包括由空格或逗号分隔的主机或IP地址与端口号 -->
+		<property name="servers" value="127.0.0.1:11211"/>
+		<!-- 指定要使用的协议(BINARY,TEXT),默认是TEXT -->
+		<property name="protocol" value="BINARY"/>
+		<!-- 设置默认的转码器(默认以net.spy.memcached.transcoders.SerializingTranscoder) -->
+		<property name="transcoder">
+			<bean class="net.spy.memcached.transcoders.SerializingTranscoder">
+				<property name="compressionThreshold" value="1024"/>
+			</bean>
+		</property>
+		<!-- 以毫秒为单位设置默认的操作超时时间，默认是2500毫秒 -->
+		<property name="opTimeout" value="1000"/>
+		<property name="timeoutExceptionThreshold" value="1998"/>
+		<!-- 设置哈希算法(见net.spy.memcached.HashAlgorithm的值) -->
+		<!--<property name="hashAlg" value="KETAMA_HASH"/>-->
+		<!-- 设置定位器类型(ARRAY_MOD,CONSISTENT),默认是ARRAY_MOD -->
+		<property name="locatorType" value="CONSISTENT"/>
+		<!-- 设置故障模式(取消，重新分配，重试)，默认是重新分配 -->
+		<property name="failureMode" value="Redistribute"/>
+		<!-- 是否使用Nagle算法，默认为true -->
+		<property name="useNagleAlgorithm" value="false"/>
+	</bean>
+
+	<bean id="memcachedCacheManager" class="com.wxcommon.cache.SpyMemcachedCacheManager">
+		<property name="memcached" ref="spyMemcachedClient"/>
+		<!-- 配置缓存时间，单位豪秒 -->
+		<property name="updateTimeout" value="1000"/>
+		<!-- 配置缓存时间，单位秒 -->
+    	<property name="expiredTime">
+    		<map>
+<!--     			<entry key="s30" value="10"/> -->
+<!--     			<entry key="m1" value="10"/> -->
+<!--     			<entry key="h1" value="10"/> -->
+<!--     			<entry key="DoctorAdviceMainService" value="10"/> -->
+<!--     			<entry key="IllnessRecordService" value="10"/> -->
+<!--     			<entry key="PatientService" value="10"/> -->
+<!--     			<entry key="VisitApplyService" value="10"/> -->
+<!--     			<entry key="VisitPreceptService" value="10"/> -->
+<!--     			<entry key="VisitRecordService" value="10"/> -->
+    		</map>
+    	</property>
+    </bean>
+</beans>

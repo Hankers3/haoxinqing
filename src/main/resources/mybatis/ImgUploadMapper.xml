@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.support.dao.ImgUploadDao">
+
+  <cache type="com.hxq.mobile.util.mybatis.SpringCache">
+  	<property name="queryCacheName" value="ImgUploadService"/>
+  	<property name="cacheManager" value="memcachedCacheManager"/>
+  </cache>
+
+    <resultMap id="base_result_map" type="com.hxq.mobile.entity.common.ImgUpload">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="tbName" column="tbName" jdbcType="VARCHAR"/>
+        <result property="pkValue" column="pkValue" jdbcType="VARCHAR"/>
+        <result property="imgName" column="imgName" jdbcType="VARCHAR"/>
+        <result property="imgUrl" column="imgUrl" jdbcType="VARCHAR"/>
+        <result property="thumbnailId" column="thumbnailId" jdbcType="VARCHAR"/>
+        <result property="thumbnailUrl" column="thumbnailUrl" jdbcType="VARCHAR"/>
+        <result property="suffix" column="suffix" jdbcType="VARCHAR"/>
+        <result property="flag" column="flag" jdbcType="VARCHAR"/>
+        <result property="optDate" column="optDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+	<sql id="base_column_list">id,tbName,pkValue,imgName,imgUrl,thumbnailId,thumbnailUrl,suffix,flag,optDate</sql>
+
+    <insert id="insert" parameterType="com.hxq.mobile.entity.common.ImgUpload">
+        INSERT INTO img_upload
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="tbName != null">tbName,</if>
+            <if test="pkValue != null">pkValue,</if>
+            <if test="imgName != null">imgName,</if>
+            <if test="imgUrl != null">imgUrl,</if>
+            <if test="thumbnailId != null">thumbnailId,</if>
+            <if test="thumbnailUrl != null">thumbnailUrl,</if>
+            <if test="suffix != null">suffix,</if>
+            <if test="flag != null">flag,</if>
+            <if test="optDate != null">optDate</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="tbName != null">#{tbName,jdbcType=VARCHAR},</if>
+            <if test="pkValue != null">#{pkValue,jdbcType=VARCHAR},</if>
+            <if test="imgName != null">#{imgName,jdbcType=VARCHAR},</if>
+            <if test="imgUrl != null">#{imgUrl,jdbcType=VARCHAR},</if>
+            <if test="thumbnailId != null">#{thumbnailId,jdbcType=VARCHAR},</if>
+            <if test="thumbnailUrl != null">#{thumbnailUrl,jdbcType=VARCHAR},</if>
+            <if test="suffix != null">#{suffix,jdbcType=VARCHAR},</if>
+            <if test="flag != null">#{flag,jdbcType=VARCHAR},</if>
+            <if test="optDate != null">#{optDate,jdbcType=TIMESTAMP}</if>
+	    </trim>
+    </insert>
+
+    <delete id="delete" parameterType="com.hxq.mobile.entity.common.ImgUpload">
+        DELETE FROM img_upload WHERE id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <update id="update" parameterType="com.hxq.mobile.entity.common.ImgUpload">
+        UPDATE img_upload
+        <set>
+            <if test="tbName != null">tbName = #{tbName,jdbcType=VARCHAR},</if>
+            <if test="pkValue != null">pkValue = #{pkValue,jdbcType=VARCHAR},</if>
+            <if test="imgName != null">imgName = #{imgName,jdbcType=VARCHAR},</if>
+            <if test="imgUrl != null">imgUrl = #{imgUrl,jdbcType=VARCHAR},</if>
+            <if test="thumbnailId != null">thumbnailId = #{thumbnailId,jdbcType=VARCHAR},</if>
+            <if test="thumbnailUrl != null">thumbnailUrl = #{thumbnailUrl,jdbcType=VARCHAR},</if>
+            <if test="suffix != null">suffix = #{suffix,jdbcType=VARCHAR},</if>
+            <if test="flag != null">flag = #{flag,jdbcType=VARCHAR},</if>
+            <if test="optDate != null">optDate = #{optDate,jdbcType=TIMESTAMP}</if>
+        </set>
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="select" parameterType="com.hxq.mobile.entity.common.ImgUpload" resultMap="base_result_map" useCache="false">
+        SELECT <include refid="base_column_list"/> FROM img_upload WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="hashmap" useCache="true">
+        SELECT <include refid="base_column_list"/> FROM img_upload
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="tbName != null and tbName != ''">AND tbName = #{tbName,jdbcType=VARCHAR}</if>
+			<if test="pkValue != null and pkValue != ''">AND pkValue = #{pkValue,jdbcType=VARCHAR}</if>
+			<if test="flag != null and flag != ''">AND flag = #{flag,jdbcType=VARCHAR}</if>
+			<if test="ids != null and ids.length != 0">
+			  <foreach collection="ids" index="idx" item="id" open="AND (" separator=" OR " close=")">id = #{id}</foreach>
+			</if>
+        </trim>
+      	ORDER BY optDate DESC
+    </select>
+</mapper>

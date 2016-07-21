@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.common.mapper.BasicdataAreaCityMapper" >
+
+  <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.common.BasicdataAreaCity" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="oper" property="oper" jdbcType="VARCHAR" />
+    <result column="opeTime" property="opeTime" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delFlag" jdbcType="CHAR" />
+    <result column="provinceUuid" property="provinceUuid" jdbcType="CHAR" />
+    <result column="cityName" property="cityName" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    uuid, oper, opeTime, delFlag, provinceUuid, cityName, latitude, longitude, state
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List"/> from basicdata_area_city where uuid=#{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectCityByProvinceUuid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List"/> from basicdata_area_city
+    where provinceUuid = #{provinceUuid,jdbcType=VARCHAR} and delFlag='1'
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from basicdata_area_city where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxq.mobile.entity.common.BasicdataAreaCity" >
+    insert into basicdata_area_city (uuid, oper, opeTime, 
+      delFlag, provinceUuid, cityName, latitude, longitude, state)
+    values (#{uuid,jdbcType=VARCHAR}, #{oper,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{provinceUuid,jdbcType=CHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, #{state,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxq.mobile.entity.common.BasicdataAreaCity" >
+    insert into basicdata_area_city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="oper != null" >
+        oper,
+      </if>
+      <if test="opeTime != null" >
+        opeTime,
+      </if>
+      <if test="delFlag != null" >
+        delFlag,
+      </if>
+      <if test="provinceUuid != null" >
+        provinceUuid,
+      </if>
+      <if test="cityName != null" >
+        cityName,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="oper != null" >
+        #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="provinceUuid != null" >
+        #{provinceUuid,jdbcType=CHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.common.BasicdataAreaCity" >
+    update basicdata_area_city
+    <set >
+      <if test="oper != null" >
+        oper = #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        opeTime = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        delFlag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="provinceUuid != null" >
+        provinceUuid = #{provinceUuid,jdbcType=CHAR},
+      </if>
+      <if test="cityName != null" >
+        cityName = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.common.BasicdataAreaCity" >
+    update basicdata_area_city set
+      oper = #{oper,jdbcType=VARCHAR},
+      opeTime = #{opeTime,jdbcType=VARCHAR},
+      delFlag = #{delFlag,jdbcType=CHAR},
+      provinceUuid = #{provinceUuid,jdbcType=CHAR},
+      cityName = #{cityName,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      state = #{state,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

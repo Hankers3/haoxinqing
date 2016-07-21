@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.doctor.visit.mapper.CustomerDoctorReleMapper" >
+  
+<!--   <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.visit.CaseGroup" >
+
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delflag" jdbcType="VARCHAR" />
+    <result column="opeTime" property="opetime" jdbcType="VARCHAR" />
+    <result column="oper" property="oper" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="groupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="doctorUuid" property="doctoruuid" jdbcType="VARCHAR" />
+  </resultMap> -->
+  
+  
+    <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.common.CustomerDoctorRele">
+        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="delFlag" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="opeTime" property="opeTime" jdbcType="VARCHAR"/>
+        <result column="oper" property="oper" jdbcType="VARCHAR"/>
+        <result column="groupUuid" property="groupUuid" jdbcType="VARCHAR"/>
+        <result column="doctorUuid" property="doctorUuid" jdbcType="VARCHAR"/>
+        <result column="customerUuid" property="customerUuid" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+    </resultMap>
+   
+  
+  
+  
+     <sql id="Base_Column_List">
+
+        uuid, delFlag, opeTime, oper, groupUuid, doctorUuid, customerUuid, createTime
+    </sql>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+
+        select
+        <include refid="Base_Column_List"/>
+        from customer_doctor_rele
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByCustomerUuidAndDoctorUuid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_doctor_rele
+        where customerUuid = #{customerUuid,jdbcType=VARCHAR}
+        and doctorUuid =#{doctorUuid,jdbcType=VARCHAR}
+    </select>
+    <select id="countCustomerByDoctorUuid" resultType="int" parameterType="java.lang.String">
+        select
+        count(customerUuid)
+        from customer_doctor_rele
+        where doctorUuid =#{doctorUuid,jdbcType=VARCHAR}
+    </select>
+    <select id="selectBygroupUuidAndDoctorUuid" resultMap="BaseResultMap">
+
+        select
+        <include refid="Base_Column_List"/>
+        from customer_doctor_rele
+        where groupUuid = #{groupUuid,jdbcType=VARCHAR}
+        <if test="doctorUuid != null">
+            and doctorUuid =#{doctorUuid,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+
+        delete from customer_doctor_rele
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByCustomerIdAndGroupId">
+
+        delete from customer_doctor_rele
+        where groupUuid = #{groupUuid,jdbcType=VARCHAR}
+        and customerUuid = #{customerUuid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.hxq.mobile.entity.common.CustomerDoctorRele">
+
+        insert into customer_doctor_rele (uuid, delFlag, opeTime,
+        oper, groupUuid, doctorUuid,
+        customerUuid, createTime)
+        values (#{uuid,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR},
+        #{oper,jdbcType=VARCHAR}, #{groupUuid,jdbcType=VARCHAR}, #{doctorUuid,jdbcType=VARCHAR},
+        #{customerUuid,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hxq.mobile.entity.common.CustomerDoctorRele">
+ 
+        insert into customer_doctor_rele
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="delFlag != null">
+                delFlag,
+            </if>
+            <if test="opeTime != null">
+                opeTime,
+            </if>
+            <if test="oper != null">
+                oper,
+            </if>
+            <if test="groupUuid != null">
+                groupUuid,
+            </if>
+            <if test="doctorUuid != null">
+                doctorUuid,
+            </if>
+            <if test="customerUuid != null">
+                customerUuid,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="opeTime != null">
+                #{opeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="oper != null">
+                #{oper,jdbcType=VARCHAR},
+            </if>
+            <if test="groupUuid != null">
+                #{groupUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorUuid != null">
+                #{doctorUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="customerUuid != null">
+                #{customerUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.common.CustomerDoctorRele">
+ 
+        update customer_doctor_rele
+        <set>
+            <if test="delFlag != null">
+                delFlag = #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="opeTime != null">
+                opeTime = #{opeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="oper != null">
+                oper = #{oper,jdbcType=VARCHAR},
+            </if>
+            <if test="groupUuid != null">
+                groupUuid = #{groupUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorUuid != null">
+                doctorUuid = #{doctorUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="customerUuid != null">
+                customerUuid = #{customerUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.common.CustomerDoctorRele">
+
+        update customer_doctor_rele
+        set delFlag = #{delFlag,jdbcType=VARCHAR},
+        opeTime = #{opeTime,jdbcType=VARCHAR},
+        oper = #{oper,jdbcType=VARCHAR},
+        groupUuid = #{groupUuid,jdbcType=VARCHAR},
+        doctorUuid = #{doctorUuid,jdbcType=VARCHAR},
+        customerUuid = #{customerUuid,jdbcType=VARCHAR},
+        createTime = #{createTime,jdbcType=VARCHAR}
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+  
+  
+</mapper>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.doctor.visit.mapper.VisitPreceptPushMapper" >
+
+  <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.visit.VisitPreceptPush" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delFlag" jdbcType="VARCHAR" />
+    <result column="opeTime" property="opeTime" jdbcType="VARCHAR" />
+    <result column="oper" property="oper" jdbcType="VARCHAR" />
+    <result column="visitPreceptUuid" property="visitPreceptUuid" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="customerUuid" property="customerUuid" jdbcType="VARCHAR" />
+    <result column="doctorUuid" property="doctorUuid" jdbcType="VARCHAR" />
+    <result column="pushTime" property="pushTime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="pushTimes" property="pushTimes" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    uuid, delFlag, opeTime, oper, visitPreceptUuid, period, customerUuid, doctorUuid, 
+    pushTime, createTime, pushTimes
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" />
+    from visit_precept_push where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from visit_precept_push where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxq.mobile.entity.visit.VisitPreceptPush" >
+    insert into visit_precept_push (uuid, delFlag, opeTime, oper, visitPreceptUuid, 
+      period, customerUuid, doctorUuid, pushTime, createTime, pushTimes)
+    values (#{uuid,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}, 
+      #{oper,jdbcType=VARCHAR}, #{visitPreceptUuid,jdbcType=VARCHAR}, #{period,jdbcType=VARCHAR}, 
+      #{customerUuid,jdbcType=VARCHAR}, #{doctorUuid,jdbcType=VARCHAR}, #{pushTime,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{pushTimes,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxq.mobile.entity.visit.VisitPreceptPush" >
+    insert into visit_precept_push
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="delFlag != null" >
+        delFlag,
+      </if>
+      <if test="opeTime != null" >
+        opeTime,
+      </if>
+      <if test="oper != null" >
+        oper,
+      </if>
+      <if test="visitPreceptUuid != null" >
+        visitPreceptUuid,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="customerUuid != null" >
+        customerUuid,
+      </if>
+      <if test="doctorUuid != null" >
+        doctorUuid,
+      </if>
+      <if test="pushTime != null" >
+        pushTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="pushTimes != null" >
+        pushTimes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="oper != null" >
+        #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPreceptUuid != null" >
+        #{visitPreceptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="customerUuid != null" >
+        #{customerUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorUuid != null" >
+        #{doctorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTimes != null" >
+        #{pushTimes,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.visit.VisitPreceptPush" >
+    update visit_precept_push
+    <set>
+      <if test="delFlag != null" >
+        delFlag = #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        opeTime = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="oper != null" >
+        oper = #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPreceptUuid != null" >
+        visitPreceptUuid = #{visitPreceptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="customerUuid != null" >
+        customerUuid = #{customerUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorUuid != null" >
+        doctorUuid = #{doctorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTime != null" >
+        pushTime = #{pushTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTimes != null" >
+        pushTimes = #{pushTimes,jdbcType=INTEGER},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.visit.VisitPreceptPush" >
+    update visit_precept_push set
+      delFlag = #{delFlag,jdbcType=VARCHAR},
+      opeTime = #{opeTime,jdbcType=VARCHAR},
+      oper = #{oper,jdbcType=VARCHAR},
+      visitPreceptUuid = #{visitPreceptUuid,jdbcType=VARCHAR},
+      period = #{period,jdbcType=VARCHAR},
+      customerUuid = #{customerUuid,jdbcType=VARCHAR},
+      doctorUuid = #{doctorUuid,jdbcType=VARCHAR},
+      pushTime = #{pushTime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      pushTimes = #{pushTimes,jdbcType=INTEGER}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

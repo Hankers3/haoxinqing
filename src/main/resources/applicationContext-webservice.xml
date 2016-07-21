@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+ 
+	<!--定义 service cxf 接口用-->
+	
+	<!-- 订单tset -->
+	<bean id="userCenterService"
+		class="com.aebiz.b2b2c.customermgr.webservice.server.service.impl.UserCenterWebServiceImpl">
+	</bean>
+	
+	<!-- 注意下面的address，这里的address的名称就是访问的WebService的name -->
+	<jaxws:server id="userCenterServiceBean" serviceClass="com.aebiz.b2b2c.customermgr.webservice.server.service.UserCenterWebService" address="/api/getUserService">
+	    <jaxws:serviceBean>
+	        <!-- 要暴露的 bean 的引用 -->
+	        <ref bean="userCenterService"/>
+	    </jaxws:serviceBean>
+	</jaxws:server>
+	
+	
+		<!--定义 service cxf 接口用-->
+	
+	<!-- 订单tset -->
+	<bean id="managerInfoService"
+		class="com.aebiz.b2b2c.customermgr.webservice.server.service.impl.ManagerInfoWebServiceImpl">
+	</bean>
+	
+	<!-- 注意下面的address，这里的address的名称就是访问的WebService的name -->
+	<jaxws:server id="managerInfoServiceBean" serviceClass="com.aebiz.b2b2c.customermgr.webservice.server.service.ManagerInfoWebService" address="/api/getManagerService">
+	    <jaxws:serviceBean>
+	        <!-- 要暴露的 bean 的引用 -->
+	        <ref bean="managerInfoService"/>
+	    </jaxws:serviceBean>
+	</jaxws:server>
+	<!-- 测试分类 -->
+	<bean id="TestCategoryService"
+		class="com.aebiz.b2b2c.customermgr.webservice.server.service.impl.TestCategoryWebServiceImpl">
+	</bean>
+
+	<!-- 注意下面的address，这里的address的名称就是访问的WebService的name -->
+	<jaxws:server id="TestCategoryServiceBean"
+		serviceClass="com.aebiz.b2b2c.customermgr.webservice.server.service.TestCategoryWebService"
+		address="/api/getQuestionService">
+		<jaxws:serviceBean>
+			<!-- 要暴露的 bean 的引用 -->
+			<ref bean="TestCategoryService" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<!-- 医生 -->
+	<bean id="DoctorService"
+		class="com.aebiz.b2b2c.customermgr.webservice.server.service.impl.DoctorWebServiceImpl">
+	</bean>
+
+	<!-- 注意下面的address，这里的address的名称就是访问的WebService的name -->
+	<jaxws:server id="DoctorServiceBean"
+		serviceClass="com.aebiz.b2b2c.customermgr.webservice.server.service.DoctorWebService"
+		address="/api/getDoctorInfoService">
+		<jaxws:serviceBean>
+			<!-- 要暴露的 bean 的引用 -->
+			<ref bean="DoctorService" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+
+	
+</beans>
+

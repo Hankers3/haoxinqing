@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxq.mobile.common.mapper.TagsMapper">
+
+  <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.common.Tags">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+    <result column="delFlag" property="delFlag" jdbcType="VARCHAR"/>
+    <result column="opeTime" property="opeTime" jdbcType="VARCHAR"/>
+    <result column="oper" property="oper" jdbcType="VARCHAR"/>
+    <result column="tagName" property="tagName" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    uuid, delFlag, opeTime, oper, tagName
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from tags where uuid=#{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllTags" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from tags
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tags where uuid=#{uuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxq.mobile.entity.common.Tags">
+    insert into tags (<include refid="Base_Column_List"/>)
+    values (#{uuid,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}, 
+      #{oper,jdbcType=VARCHAR}, #{tagName,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxq.mobile.entity.common.Tags">
+    insert into tags
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">uuid,</if>
+      <if test="delFlag != null">delFlag,</if>
+      <if test="opeTime != null">opeTime,</if>
+      <if test="oper != null">oper,</if>
+      <if test="tagName != null">tagName,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">#{uuid,jdbcType=VARCHAR},</if>
+      <if test="delFlag != null">#{delFlag,jdbcType=VARCHAR},</if>
+      <if test="opeTime != null">#{opeTime,jdbcType=VARCHAR},</if>
+      <if test="oper != null">#{oper,jdbcType=VARCHAR},</if>
+      <if test="tagName != null">#{tagName,jdbcType=VARCHAR},</if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.common.Tags">
+    update tags
+    <set>
+      <if test="delFlag != null">delFlag=#{delFlag,jdbcType=VARCHAR},</if>
+      <if test="opeTime != null">opeTime=#{opeTime,jdbcType=VARCHAR},</if>
+      <if test="oper != null">oper=#{oper,jdbcType=VARCHAR},</if>
+      <if test="tagName != null">tagName=#{tagName,jdbcType=VARCHAR},</if>
+    </set>
+    where uuid=#{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.common.Tags">
+    update tags set
+      delFlag=#{delFlag,jdbcType=VARCHAR},
+      opeTime=#{opeTime,jdbcType=VARCHAR},
+      oper=#{oper,jdbcType=VARCHAR},
+      tagName=#{tagName,jdbcType=VARCHAR}
+    where uuid=#{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

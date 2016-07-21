@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.hxq.mobile.weixin.repository.CszyResultDao">
+
+	<resultMap id="base_result_map" type="com.hxq.mobile.entity.weixin.ProfessionResult">
+		<id property="id" column="uuid" jdbcType="VARCHAR"/>
+		<id property="openid" column="openid" jdbcType="VARCHAR"/>
+		<id property="integral" column="integral" jdbcType="INTEGER"/>
+		<id property="completeDate" column="complete_date" jdbcType="VARCHAR"/>
+		<id property="score" column="score" jdbcType="INTEGER"/>
+		<id property="subjectId" column="subject_id" jdbcType="VARCHAR"/>
+
+	</resultMap>
+
+	<select id="selectByCondition" parameterType="com.hxq.mobile.entity.weixin.ProfessionResult" resultMap="base_result_map">
+		select * from cs_zy_result
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">id=#{id}</if>
+			<if test="subjectId != null">and subject_id=#{subjectId}</if>
+			<if test="openid != null">and openid=#{openid}</if>
+			<if test="completeDate != null">and complete_date=#{completeDate}</if>
+			<if test="score != null">and score=#{score}</if>
+			<if test="integral != null">and integral=#{integral}</if>
+		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.hxq.mobile.entity.weixin.ProfessionResult">
+		insert into cs_zy_result (id,subject_id,openid,complete_date,score,integral)
+		values(#{id},#{subjectId},#{openid},#{completeDate},#{score},#{integral})
+	</insert>
+</mapper>

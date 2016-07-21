@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxq.mobile.doctor.common.mapper.DoctorRightMapper">
+
+  <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.common.DoctorRight">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+    <result column="delFlag" property="delFlag" jdbcType="VARCHAR"/>
+    <result column="opeTime" property="opeTime" jdbcType="VARCHAR"/>
+    <result column="oper" property="oper" jdbcType="VARCHAR"/>
+    <result column="doctorUuid" property="doctorUuid" jdbcType="VARCHAR"/>
+    <result column="plus" property="plus" jdbcType="CHAR"/>
+    <result column="teletext" property="teletext" jdbcType="CHAR"/>
+    <result column="phone" property="phone" jdbcType="CHAR"/>
+    <result column="personal" property="personal" jdbcType="CHAR"/>
+    <result column="disturb" property="disturb" jdbcType="CHAR"/>
+    <result column="note" property="note" jdbcType="VARCHAR"/>
+    <result column="type" property="type" jdbcType="VARCHAR"/>
+    <result column="exam" property="exam" jdbcType="CHAR"/>
+    <result column="refuseReason" property="refuseReason" jdbcType="VARCHAR"/>
+    <result column="personalExam" property="personalExam" jdbcType="CHAR"/>
+    <result column="telDisturb" property="telDisturb" jdbcType="CHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    uuid, delFlag, opeTime, oper, doctorUuid, plus, teletext, phone, personal, 
+    disturb, note, type, exam, refuseReason, personalExam, telDisturb
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from doctor_right where uuid=#{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByDoctorUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from doctor_right
+    where doctorUuid=#{doctorUuid,jdbcType=VARCHAR}
+    order by opeTime desc limit 1
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from doctor_right where uuid=#{uuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxq.mobile.entity.common.DoctorRight">
+    insert into doctor_right (uuid, delFlag, opeTime, oper, doctorUuid, plus, teletext,
+      phone, personal, disturb, note, type, exam, refuseReason, personalExam, telDisturb)
+    values (#{uuid,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}, 
+      #{oper,jdbcType=VARCHAR}, #{doctorUuid,jdbcType=VARCHAR}, #{plus,jdbcType=CHAR}, 
+      #{teletext,jdbcType=CHAR}, #{phone,jdbcType=CHAR}, #{personal,jdbcType=CHAR}, #{disturb,jdbcType=CHAR}, 
+      #{note,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{exam,jdbcType=CHAR}, #{refuseReason,jdbcType=VARCHAR}, 
+      #{personalExam,jdbcType=CHAR}, #{telDisturb,jdbcType=CHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxq.mobile.entity.common.DoctorRight">
+    insert into doctor_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">uuid,</if>
+      <if test="delFlag != null">delFlag,</if>
+      <if test="opeTime != null">opeTime,</if>
+      <if test="oper != null">oper,</if>
+      <if test="doctorUuid != null">doctorUuid,</if>
+      <if test="plus != null">plus,</if>
+      <if test="teletext != null">teletext,</if>
+      <if test="phone != null">phone,</if>
+      <if test="personal != null">personal,</if>
+      <if test="disturb != null">disturb,</if>
+      <if test="note != null">note,</if>
+      <if test="type != null">type,</if>
+      <if test="exam != null">exam,</if>
+      <if test="refuseReason != null">refuseReason,</if>
+      <if test="personalExam != null">personalExam,</if>
+      <if test="telDisturb != null">telDisturb,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">#{uuid,jdbcType=VARCHAR},</if>
+      <if test="delFlag != null">#{delFlag,jdbcType=VARCHAR},</if>
+      <if test="opeTime != null">#{opeTime,jdbcType=VARCHAR},</if>
+      <if test="oper != null">#{oper,jdbcType=VARCHAR},</if>
+      <if test="doctorUuid != null">#{doctorUuid,jdbcType=VARCHAR},</if>
+      <if test="plus != null">#{plus,jdbcType=CHAR},</if>
+      <if test="teletext != null">#{teletext,jdbcType=CHAR},</if>
+      <if test="phone != null">#{phone,jdbcType=CHAR},</if>
+      <if test="personal != null">#{personal,jdbcType=CHAR},</if>
+      <if test="disturb != null">#{disturb,jdbcType=CHAR},</if>
+      <if test="note != null">#{note,jdbcType=VARCHAR},</if>
+      <if test="type != null">#{type,jdbcType=VARCHAR},</if>
+      <if test="exam != null">#{exam,jdbcType=CHAR},</if>
+      <if test="refuseReason != null">#{refuseReason,jdbcType=VARCHAR},</if>
+      <if test="personalExam != null">#{personalExam,jdbcType=CHAR},</if>
+      <if test="telDisturb != null">#{telDisturb,jdbcType=CHAR},</if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.common.DoctorRight">
+    update doctor_right
+    <set>
+      <if test="delFlag != null">delFlag=#{delFlag,jdbcType=VARCHAR},</if>
+      <if test="opeTime != null">opeTime=#{opeTime,jdbcType=VARCHAR},</if>
+      <if test="oper != null">oper=#{oper,jdbcType=VARCHAR},</if>
+      <if test="doctorUuid != null">doctorUuid=#{doctorUuid,jdbcType=VARCHAR},</if>
+      <if test="plus != null">plus=#{plus,jdbcType=CHAR},</if>
+      <if test="teletext != null">teletext=#{teletext,jdbcType=CHAR},</if>
+      <if test="phone != null">phone=#{phone,jdbcType=CHAR},</if>
+      <if test="personal != null">personal=#{personal,jdbcType=CHAR},</if>
+      <if test="disturb != null">disturb=#{disturb,jdbcType=CHAR},</if>
+      <if test="note != null">note=#{note,jdbcType=VARCHAR},</if>
+      <if test="type != null">type=#{type,jdbcType=VARCHAR},</if>
+      <if test="exam != null">exam=#{exam,jdbcType=CHAR},</if>
+      <if test="refuseReason != null">refuseReason=#{refuseReason,jdbcType=VARCHAR},</if>
+      <if test="personalExam != null">personalExam=#{personalExam,jdbcType=CHAR},</if>
+      <if test="telDisturb != null">telDisturb=#{telDisturb,jdbcType=CHAR},</if>
+    </set>
+    where uuid=#{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.common.DoctorRight">
+    update doctor_right set
+      delFlag=#{delFlag,jdbcType=VARCHAR}, opeTime=#{opeTime,jdbcType=VARCHAR},
+      oper=#{oper,jdbcType=VARCHAR}, doctorUuid=#{doctorUuid,jdbcType=VARCHAR},
+      plus=#{plus,jdbcType=CHAR}, teletext=#{teletext,jdbcType=CHAR},
+      phone=#{phone,jdbcType=CHAR}, personal=#{personal,jdbcType=CHAR},
+      disturb=#{disturb,jdbcType=CHAR}, note=#{note,jdbcType=VARCHAR},
+      type=#{type,jdbcType=VARCHAR}, exam=#{exam,jdbcType=CHAR},
+      refuseReason=#{refuseReason,jdbcType=VARCHAR}, personalExam=#{personalExam,jdbcType=CHAR},
+      telDisturb=#{telDisturb,jdbcType=CHAR}
+    where uuid=#{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

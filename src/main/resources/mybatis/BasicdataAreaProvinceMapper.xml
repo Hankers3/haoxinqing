@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxq.mobile.common.mapper.BasicdataAreaProvinceMapper">
+
+  <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.common.BasicdataAreaProvince">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="oper" property="oper" jdbcType="VARCHAR" />
+    <result column="opeTime" property="opeTime" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delFlag" jdbcType="CHAR" />
+    <result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    uuid, oper, opeTime, delFlag, provinceName, state
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from basicdata_area_province where uuid=#{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from basicdata_area_province where delFlag='1'
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from basicdata_area_province where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxq.mobile.entity.common.BasicdataAreaProvince">
+    insert into basicdata_area_province (uuid, oper, opeTime, 
+      delFlag, provinceName, state)
+    values (#{uuid,jdbcType=VARCHAR}, #{oper,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{provinceName,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxq.mobile.entity.common.BasicdataAreaProvince">
+    insert into basicdata_area_province
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="oper != null">
+        oper,
+      </if>
+      <if test="opeTime != null">
+        opeTime,
+      </if>
+      <if test="delFlag != null">
+        delFlag,
+      </if>
+      <if test="provinceName != null">
+        provinceName,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="oper != null">
+        #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="provinceName != null">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.common.BasicdataAreaProvince">
+    update basicdata_area_province
+    <set>
+      <if test="oper != null">
+        oper = #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="opetime != null">
+        opeTime = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        delFlag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="provincename != null">
+        provinceName = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.common.BasicdataAreaProvince">
+    update basicdata_area_province set
+      oper = #{oper,jdbcType=VARCHAR},
+      opeTime = #{opeTime,jdbcType=VARCHAR},
+      delFlag = #{delFlag,jdbcType=CHAR},
+      provinceName = #{provinceName,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

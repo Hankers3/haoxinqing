@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.doctor.visit.mapper.VisitPreceptMapper">
+
+    <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.visit.VisitPrecept">
+        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="oper" property="oper" jdbcType="VARCHAR"/>
+        <result column="opeTime" property="opeTime" jdbcType="VARCHAR"/>
+        <result column="delFlag" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="serviceStaffUuid" property="serviceStaffUuid" jdbcType="VARCHAR"/>
+        <result column="preceptName" property="preceptName" jdbcType="VARCHAR"/>
+        <result column="drugTherapy" property="drugTherapy" jdbcType="VARCHAR"/>
+        <result column="sideEffects" property="sideEffects" jdbcType="VARCHAR"/>
+        <result column="dietGuide" property="dietGuide" jdbcType="VARCHAR"/>
+        <result column="sport" property="sport" jdbcType="VARCHAR"/>
+        <result column="sleep" property="sleep" jdbcType="VARCHAR"/>
+        <result column="period" property="period" jdbcType="SMALLINT"/>
+        <result column="electrocardiogram" property="electrocardiogram" jdbcType="SMALLINT"/>
+        <result column="renal" property="renal" jdbcType="VARCHAR"/>
+        <result column="weight" property="weight" jdbcType="SMALLINT"/>
+        <result column="bloodRoutine" property="bloodRoutine" jdbcType="SMALLINT"/>
+        <result column="hepatic" property="hepatic" jdbcType="SMALLINT"/>
+        <result column="visitUuid" property="visitUuid" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="hospitalUuid" property="hospitalUuid" jdbcType="VARCHAR"/>
+        <result column="recommend" property="recommend" jdbcType="VARCHAR"/>
+        <result column="selfTest" property="selfTest" jdbcType="VARCHAR"/>
+        <result column="doctorTest" property="doctorTest" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uuid, oper, opeTime, delFlag, serviceStaffUuid, preceptName, drugTherapy, sideEffects,
+        dietGuide, sport, sleep, period, electrocardiogram, renal, weight, bloodRoutine,
+        hepatic, visitUuid, createTime, hospitalUuid, recommend, selfTest, doctorTest
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select <include refid="Base_Column_List"/> from visit_precept where uuid = #{uuid,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getRecommendVisitpreceptList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from visit_precept where recommend = 1
+    </select>
+
+    <select id="getMyVisitpreceptByDoctorid" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select <include refid="Base_Column_List"/> from visit_precept where recommend = 0 AND serviceStaffUuid = #{doctorUuid}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from visit_precept where uuid = #{uuid,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.hxq.mobile.entity.visit.VisitPrecept">
+        insert into visit_precept (uuid, oper, opeTime,
+        delFlag, serviceStaffUuid, preceptName,
+        drugTherapy, sideEffects, dietGuide,
+        sport, sleep, period,
+        electrocardiogram, renal, weight,
+        bloodRoutine, hepatic, visitUuid,
+        createTime, hospitalUuid, recommend,
+        selfTest, doctorTest)
+        values (#{uuid,jdbcType=VARCHAR}, #{oper,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR},
+        #{delFlag,jdbcType=VARCHAR}, #{serviceStaffUuid,jdbcType=VARCHAR}, #{preceptName,jdbcType=VARCHAR},
+        #{drugTherapy,jdbcType=VARCHAR}, #{sideEffects,jdbcType=VARCHAR}, #{dietGuide,jdbcType=VARCHAR},
+        #{sport,jdbcType=VARCHAR}, #{sleep,jdbcType=VARCHAR}, #{period,jdbcType=SMALLINT},
+        #{electrocardiogram,jdbcType=SMALLINT}, #{renal,jdbcType=VARCHAR}, #{weight,jdbcType=SMALLINT},
+        #{bloodRoutine,jdbcType=SMALLINT}, #{hepatic,jdbcType=SMALLINT}, #{visitUuid,jdbcType=VARCHAR},
+        #{createTime,jdbcType=VARCHAR}, #{hospitalUuid,jdbcType=VARCHAR}, #{recommend,jdbcType=VARCHAR},
+        #{selfTest,jdbcType=VARCHAR}, #{doctorTest,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.hxq.mobile.entity.visit.VisitPrecept">
+        insert into visit_precept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="oper != null">
+                oper,
+            </if>
+            <if test="opeTime != null">
+                opeTime,
+            </if>
+            <if test="delFlag != null">
+                delFlag,
+            </if>
+            <if test="serviceStaffUuid != null">
+                serviceStaffUuid,
+            </if>
+            <if test="preceptName != null">
+                preceptName,
+            </if>
+            <if test="drugTherapy != null">
+                drugTherapy,
+            </if>
+            <if test="sideEffects != null">
+                sideEffects,
+            </if>
+            <if test="dietGuide != null">
+                dietGuide,
+            </if>
+            <if test="sport != null">
+                sport,
+            </if>
+            <if test="sleep != null">
+                sleep,
+            </if>
+            <if test="period != null">
+                period,
+            </if>
+            <if test="electrocardiogram != null">
+                electrocardiogram,
+            </if>
+            <if test="renal != null">
+                renal,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="bloodRoutine != null">
+                bloodRoutine,
+            </if>
+            <if test="hepatic != null">
+                hepatic,
+            </if>
+            <if test="visitUuid != null">
+                visitUuid,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="hospitalUuid != null">
+                hospitalUuid,
+            </if>
+            <if test="recommend != null">
+                recommend,
+            </if>
+            <if test="selfTest != null">
+                selfTest,
+            </if>
+            <if test="doctorTest != null">
+                doctorTest,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="oper != null">
+                #{oper,jdbcType=VARCHAR},
+            </if>
+            <if test="opeTime != null">
+                #{opeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceStaffUuid != null">
+                #{serviceStaffUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="preceptName != null">
+                #{preceptName,jdbcType=VARCHAR},
+            </if>
+            <if test="drugTherapy != null">
+                #{drugTherapy,jdbcType=VARCHAR},
+            </if>
+            <if test="sideEffects != null">
+                #{sideEffects,jdbcType=VARCHAR},
+            </if>
+            <if test="dietGuide != null">
+                #{dietGuide,jdbcType=VARCHAR},
+            </if>
+            <if test="sport != null">
+                #{sport,jdbcType=VARCHAR},
+            </if>
+            <if test="sleep != null">
+                #{sleep,jdbcType=VARCHAR},
+            </if>
+            <if test="period != null">
+                #{period,jdbcType=SMALLINT},
+            </if>
+            <if test="electrocardiogram != null">
+                #{electrocardiogram,jdbcType=SMALLINT},
+            </if>
+            <if test="renal != null">
+                #{renal,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=SMALLINT},
+            </if>
+            <if test="bloodRoutine != null">
+                #{bloodRoutine,jdbcType=SMALLINT},
+            </if>
+            <if test="hepatic != null">
+                #{hepatic,jdbcType=SMALLINT},
+            </if>
+            <if test="visitUuid != null">
+                #{visitUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalUuid != null">
+                #{hospitalUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="recommend != null">
+                #{recommend,jdbcType=VARCHAR},
+            </if>
+            <if test="selfTest != null">
+                #{selfTest,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorTest != null">
+                #{doctorTest,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.visit.VisitPrecept">
+        update visit_precept
+        <set>
+            <if test="oper != null">
+                oper = #{oper,jdbcType=VARCHAR},
+            </if>
+            <if test="opeTime != null">
+                opeTime = #{opeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                delFlag = #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceStaffUuid != null">
+                serviceStaffUuid = #{serviceStaffUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="preceptName != null">
+                preceptName = #{preceptName,jdbcType=VARCHAR},
+            </if>
+            <if test="drugTherapy != null">
+                drugTherapy = #{drugTherapy,jdbcType=VARCHAR},
+            </if>
+            <if test="sideEffects != null">
+                sideEffects = #{sideEffects,jdbcType=VARCHAR},
+            </if>
+            <if test="dietGuide != null">
+                dietGuide = #{dietGuide,jdbcType=VARCHAR},
+            </if>
+            <if test="sport != null">
+                sport = #{sport,jdbcType=VARCHAR},
+            </if>
+            <if test="sleep != null">
+                sleep = #{sleep,jdbcType=VARCHAR},
+            </if>
+            <if test="period != null">
+                period = #{period,jdbcType=SMALLINT},
+            </if>
+            <if test="electrocardiogram != null">
+                electrocardiogram = #{electrocardiogram,jdbcType=SMALLINT},
+            </if>
+            <if test="renal != null">
+                renal = #{renal,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=SMALLINT},
+            </if>
+            <if test="bloodRoutine != null">
+                bloodRoutine = #{bloodRoutine,jdbcType=SMALLINT},
+            </if>
+            <if test="hepatic != null">
+                hepatic = #{hepatic,jdbcType=SMALLINT},
+            </if>
+            <if test="visitUuid != null">
+                visitUuid = #{visitUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalUuid != null">
+                hospitalUuid = #{hospitalUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="recommend != null">
+                recommend = #{recommend,jdbcType=VARCHAR},
+            </if>
+            <if test="selfTest != null">
+                selfTest = #{selfTest,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorTest != null">
+                doctorTest = #{doctorTest,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.visit.VisitPrecept">
+        update visit_precept
+        set oper = #{oper,jdbcType=VARCHAR},
+        opeTime = #{opeTime,jdbcType=VARCHAR},
+        delFlag = #{delFlag,jdbcType=VARCHAR},
+        serviceStaffUuid = #{serviceStaffUuid,jdbcType=VARCHAR},
+        preceptName = #{preceptName,jdbcType=VARCHAR},
+        drugTherapy = #{drugTherapy,jdbcType=VARCHAR},
+        sideEffects = #{sideEffects,jdbcType=VARCHAR},
+        dietGuide = #{dietGuide,jdbcType=VARCHAR},
+        sport = #{sport,jdbcType=VARCHAR},
+        sleep = #{sleep,jdbcType=VARCHAR},
+        period = #{period,jdbcType=SMALLINT},
+        electrocardiogram = #{electrocardiogram,jdbcType=SMALLINT},
+        renal = #{renal,jdbcType=VARCHAR},
+        weight = #{weight,jdbcType=SMALLINT},
+        bloodRoutine = #{bloodRoutine,jdbcType=SMALLINT},
+        hepatic = #{hepatic,jdbcType=SMALLINT},
+        visitUuid = #{visitUuid,jdbcType=VARCHAR},
+        createTime = #{createTime,jdbcType=VARCHAR},
+        hospitalUuid = #{hospitalUuid,jdbcType=VARCHAR},
+        recommend = #{recommend,jdbcType=VARCHAR},
+        selfTest = #{selfTest,jdbcType=VARCHAR},
+        doctorTest = #{doctorTest,jdbcType=VARCHAR}
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+</mapper>

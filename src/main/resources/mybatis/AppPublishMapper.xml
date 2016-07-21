@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxq.mobile.manage.dao.AppPublishDao">
+
+  <cache type="com.hxq.mobile.util.mybatis.SpringCache">
+  	<property name="queryCacheName" value="AppManageService"/>
+  	<property name="cacheManager" value="memcachedCacheManager"/>
+  </cache>
+
+    <resultMap id="base_result_map" type="com.hxq.mobile.entity.common.AppPublish">
+        <id property="id" column="uuid" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="flag" column="flag" jdbcType="VARCHAR"/>
+        <result property="publishDate" column="publish_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="base_column_list">uuid, type, version, url, flag, publish_date</sql>
+
+    <insert id="insert" parameterType="com.hxq.mobile.entity.common.AppPublish">
+        INSERT INTO app_publish
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">uuid,</if>
+            <if test="type != null">type,</if>
+            <if test="version != null">version,</if>
+            <if test="url != null">url,</if>
+            <if test="flag != null">flag,</if>
+            <if test="publishDate != null">publish_date</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=VARCHAR},</if>
+            <if test="version != null">#{version,jdbcType=VARCHAR},</if>
+            <if test="url != null">#{url,jdbcType=VARCHAR},</if>
+            <if test="flag != null">#{flag,jdbcType=VARCHAR},</if>
+            <if test="publishDate != null">#{publishDate,jdbcType=TIMESTAMP}</if>
+	    </trim>
+    </insert>
+
+    <delete id="delete" parameterType="com.hxq.mobile.entity.common.AppPublish">
+        DELETE FROM app_publish WHERE uuid = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <update id="update" parameterType="com.hxq.mobile.entity.common.AppPublish">
+        UPDATE app_publish
+        <set>
+            <if test="type != null">type = #{type,jdbcType=VARCHAR},</if>
+            <if test="version != null">version = #{version,jdbcType=VARCHAR},</if>
+            <if test="url != null">url = #{url,jdbcType=VARCHAR},</if>
+            <if test="flag != null">flag = #{flag,jdbcType=VARCHAR},</if>
+            <if test="publishDate != null">publish_date = #{publishDate,jdbcType=TIMESTAMP}</if>
+        </set>
+        WHERE uuid = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="select" parameterType="com.hxq.mobile.entity.common.AppPublish" resultMap="base_result_map" useCache="false">
+        SELECT <include refid="base_column_list"/> FROM app_publish WHERE uuid = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="hashmap" useCache="true">
+        SELECT <include refid="base_column_list"/> FROM app_publish
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="type != null and type !=''">AND type = #{type,jdbcType=VARCHAR}</if>
+			<if test="version != null and version !=''">AND version = #{version,jdbcType=VARCHAR}</if>
+			<if test="flag != null and flag !=''">AND flag = #{flag,jdbcType=VARCHAR}</if>
+			<if test="publishDateFrom != null and publishDateFrom !=''">
+				AND publish_date &gt;= STR_TO_DATE(#{publishDateFrom,jdbcType=VARCHAR},'%Y-%m-%d')
+			</if>
+			<if test="publishDateTo != null and publishDateTo !=''">
+				AND publish_date &lt; DATE_ADD(STR_TO_DATE(#{publishDateTo,jdbcType=VARCHAR},'%Y-%m-%d'),interval 1 day)
+			</if>
+      	</trim>
+		<choose>
+			<when test="orderField !=null and orderField !=''">ORDER BY ${orderField}</when>
+			<otherwise>ORDER BY publish_date DESC</otherwise>
+		</choose>
+    </select>
+</mapper>

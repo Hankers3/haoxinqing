@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxq.mobile.doctor.common.mapper.StaffLoginStatusMapper">
+
+  <resultMap id="BaseResultMap" type="com.hxq.mobile.entity.common.StaffLoginStatus">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+    <result column="delFlag" property="delFlag" jdbcType="VARCHAR"/>
+    <result column="opeTime" property="opeTime" jdbcType="VARCHAR"/>
+    <result column="oper" property="oper" jdbcType="VARCHAR"/>
+    <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+    <result column="lastLoginTime" property="lastLoginTime" jdbcType="VARCHAR"/>
+    <result column="lastOutOfTime" property="lastOutOfTime" jdbcType="VARCHAR"/>
+    <result column="serviceStaffUuid" property="serviceStaffUuid" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="VARCHAR"/>
+    <result column="theLoginTime" property="theLoginTime" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    uuid, delFlag, opeTime, oper, createTime, lastLoginTime,
+    lastOutOfTime, serviceStaffUuid, status, theLoginTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/>
+    from staff_login_status where uuid=#{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByDoctorUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from staff_login_status
+    where serviceStaffUuid=#{doctorUuid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from staff_login_status where uuid=#{uuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxq.mobile.entity.common.StaffLoginStatus">
+    insert into staff_login_status (uuid, delFlag, opeTime, oper, createTime,
+      lastLoginTime, lastOutOfTime, serviceStaffUuid, status, theLoginTime)
+    values (#{uuid,jdbcType=VARCHAR}, #{delflag,jdbcType=VARCHAR}, #{opetime,jdbcType=VARCHAR}, 
+      #{oper,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=VARCHAR}, 
+      #{lastoutoftime,jdbcType=VARCHAR}, #{servicestaffuuid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{thelogintime,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxq.mobile.entity.common.StaffLoginStatus">
+    insert into staff_login_status
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">uuid,</if>
+      <if test="delFlag != null">delFlag,</if>
+      <if test="opeTime != null">opeTime,</if>
+      <if test="oper != null">oper,</if>
+      <if test="createTime != null">createTime,</if>
+      <if test="lastLoginTime != null">lastLoginTime,</if>
+      <if test="lastOutOfTime != null">lastOutOfTime,</if>
+      <if test="serviceStaffUuid != null">serviceStaffUuid,</if>
+      <if test="status != null">status,</if>
+      <if test="theLoginTime != null">theLoginTime,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">#{uuid,jdbcType=VARCHAR},</if>
+      <if test="delFlag != null">#{delFlag,jdbcType=VARCHAR},</if>
+      <if test="opeTime != null">#{opeTime,jdbcType=VARCHAR},</if>
+      <if test="oper != null">#{oper,jdbcType=VARCHAR},</if>
+      <if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+      <if test="lastLoginTime != null">#{lastLoginTime,jdbcType=VARCHAR},</if>
+      <if test="lastOutOfTime != null">#{lastOutOfTime,jdbcType=VARCHAR},</if>
+      <if test="serviceStaffUuid != null">#{serviceStaffUuid,jdbcType=VARCHAR},</if>
+      <if test="status != null">#{status,jdbcType=VARCHAR},</if>
+      <if test="theLoginTime != null">#{theLoginTime,jdbcType=VARCHAR},</if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxq.mobile.entity.common.StaffLoginStatus">
+    update staff_login_status
+    <set>
+      <if test="delFlag != null">delFlag=#{delFlag,jdbcType=VARCHAR},</if>
+      <if test="opeTime != null">opeTime=#{opeTime,jdbcType=VARCHAR},</if>
+      <if test="oper != null">oper=#{oper,jdbcType=VARCHAR},</if>
+      <if test="createTime != null">createTime=#{createTime,jdbcType=VARCHAR},</if>
+      <if test="lastLoginTime != null">lastLoginTime=#{lastLoginTime,jdbcType=VARCHAR},</if>
+      <if test="lastOutOfTime != null">lastOutOfTime=#{lastOutOfTime,jdbcType=VARCHAR},</if>
+      <if test="serviceStaffUuid != null">serviceStaffUuid=#{serviceStaffUuid,jdbcType=VARCHAR},</if>
+      <if test="status != null">status=#{status,jdbcType=VARCHAR},</if>
+      <if test="theLoginTime != null">theLoginTime=#{theLoginTime,jdbcType=VARCHAR},</if>
+    </set>
+    where uuid=#{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hxq.mobile.entity.common.StaffLoginStatus">
+    update staff_login_status set
+      delFlag=#{delFlag,jdbcType=VARCHAR},
+      opeTime=#{opeTime,jdbcType=VARCHAR},
+      oper=#{oper,jdbcType=VARCHAR},
+      createTime=#{createTime,jdbcType=VARCHAR},
+      lastLoginTime=#{lastLoginTime,jdbcType=VARCHAR},
+      lastOutOfTime=#{lastOutOfTime,jdbcType=VARCHAR},
+      serviceStaffUuid=#{serviceStaffUuid,jdbcType=VARCHAR},
+      status=#{status,jdbcType=VARCHAR},
+      theLoginTime=#{theLoginTime,jdbcType=VARCHAR}
+    where uuid=#{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
